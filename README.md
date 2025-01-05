@@ -29,7 +29,6 @@ A Spring Boot-based microservice providing token based authentication functional
 
 ```bash
 git clone https://github.com/your-username/authentication-service.git
-cd auth
 ```
 ### 2. Build and Run the Docker-Compose file
 
@@ -39,6 +38,7 @@ docker-compose up --build
 
 ### 3. Run the Spring boot Application
 ```bash
+cd auth
 mvn spring-boot:run
 ```
 
