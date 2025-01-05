@@ -1,4 +1,4 @@
-# Authentication Service
+# Token-Based Authentication Service
 A Spring Boot-based microservice providing token based authentication functionalities.
 
 
