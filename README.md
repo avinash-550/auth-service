@@ -8,6 +8,16 @@ A Spring Boot-based microservice providing token based authentication functional
 - **User Login**: Authenticate users and issue JWT access tokens.
 - **Database Integration**: Store user credentials securely in a relational database.
 
+## Working Demo
+<div >
+  <img src="artifacts/auth_demo.gif" width="700" />
+</div>
+
+## Architecture
+![Architecture Diagram](artifacts/architecture.png)
+
+
+[Architecture Edit Link](https://drive.google.com/file/d/1yVSM8zGEvzjBebzTH37iipqzIpmyStho/view?usp=drive_link)
 
 
 ## Requirements
