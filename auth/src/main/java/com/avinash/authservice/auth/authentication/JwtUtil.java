@@ -1,18 +1,25 @@
 package com.avinash.authservice.auth.authentication;
 
 import io.jsonwebtoken.*;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private final String SECRET_KEY = "Secretcd48c2b2ddf54c3abf2eb29ffd34c966";
+    
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
+
+    @Value("${jwt.ttl}")
+    private long JWT_TTL;
 
     public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hour
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_TTL)) // 1 hour
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }

@@ -1,25 +1,21 @@
 # Authentication Service
-
 A Spring Boot-based microservice providing token based authentication functionalities.
-
 
 
 ## Features
 
 - **User Signup**: Register users with secure password hashing.
 - **User Login**: Authenticate users and issue JWT access tokens.
-- **Refresh Tokens**: Allow users to renew expired tokens securely.
-- **Spring Security Integration**: Protect endpoints with role-based access control.
 - **Database Integration**: Store user credentials securely in a relational database.
 
 
 
 ## Requirements
-
 - **Java 17**
 - **Spring Boot 3.xx**
 - **Maven** (for project build)
 - **MySQL** 
+- **Docker**
 
 
 
@@ -56,18 +52,15 @@ Open [index.html](frontend/index.html) in your favorite browser.
 - **Request Body**:
   ```json
   {
-    "username": "testuser",
-    "password": "securepassword",
-    "email": "user@example.com"
+    "username": "user3",
+    "password": "securepassword"
   }
   ```
 
 
 - **Response**:
-  ```json
-  {
-    "message": "User registered successfully."
-  }
+  ```string
+  User registered successfully!
   ```
 ### **Login Endpoint**
 - **Method**: `POST`
@@ -75,34 +68,27 @@ Open [index.html](frontend/index.html) in your favorite browser.
 - **Request Body**:
   ```json
   {
-    "username": "testuser",
+    "username": "user3",
     "password": "securepassword"
   }
   ```
 
 - **Response**:
-  ```json
-    {
-    "accessToken": "jwt-access-token",
-    "refreshToken": "jwt-refresh-token"
-    }
+  ```string
+  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMyIsImlhdCI6MTczNjA3ODU0OCwiZXhwIjoxNzM2MDgyMTQ4fQ.CD98d3u6cHoH4qMO9iA1TBPaEXsAGOtTUg6ivVwKaV0
   ```
 
-### **Refresh Token Endpoint**
-- **Method**: `POST`
-- **URL**: `/api/auth/refresh`
-- **Request Body**:
-  ```json
-  {
-    "refreshToken": "jwt-refresh-token"
-  }
-  ```
+### **Example Authenticated Endpoint**
+- **Method**: `GET`
+- **URL**: `/example`
+- **AUTHORIZATION**: Bearer `<access_token>`
 
 - **Response**:
   ```json
-    {
-    "accessToken": "new-jwt-access-token"
-    }
+  {
+      "msg": "Successfully authenticated!",
+      "username": "user3"
+  }
   ```
 
 
@@ -112,16 +98,13 @@ Set up the following variables in your `application.properties` file or as envir
 
 | Property                  | Default Value                        | Description                               |
 |---------------------------|--------------------------------------|-------------------------------------------|
-| `spring.datasource.url`   | `jdbc:postgresql://localhost:5432/authdb` | Database URL                              |
-| `spring.datasource.username` | `postgres`                          | Database username                         |
-| `spring.datasource.password` | `password`                          | Database password                         |
-| `jwt.secret`              | `your-secret-key`                   | Secret key for JWT signing                |
-| `jwt.expiration`          | `3600`                              | Access token expiration time in seconds   |
+| `JWT_SECRET`   | `ddf54c3abf2eb29ffd34cd48c2b2ddf54c3abf2eb29ffd34c966` | Secret key for JWT signing                |
+| `JWT_TTL` | `360000`                          | Access token expiration time in milliseconds   
 
 ## How It Works
 
 1. **Signup**:  
-   Users register with a username, email, and password. Passwords are securely hashed using BCrypt before being stored in the database.
+   Users register with a username and password. Passwords are securely hashed using BCrypt before being stored in the database.
 
 2. **Login**:  
    Users authenticate using their credentials. Upon successful authentication, a JWT access token and a refresh token are generated and returned.
@@ -129,19 +112,17 @@ Set up the following variables in your `application.properties` file or as envir
 3. **Access Token**:  
    Protects API endpoints by requiring a valid JWT token in the `Authorization` header of requests.
 
-4. **Refresh Token**:  
-   Allows users to request a new access token without needing to log in again, ensuring seamless user sessions.
-
+## Todo
+ - Add contract tests
+ - Package the application into a Docker container for easier deployment.
+ - Implement role-based access control for fine-grained authorization.
 
 ## Future Enhancements
 
 - **Email Verification**: Add email verification during the signup process to enhance account security.
-- **Roles and Permissions**: Implement role-based access control for fine-grained authorization.
 - **OAuth2 Integration**: Support third-party authentication providers like Google, Facebook, etc.
-- **Dockerization**: Package the application into a Docker container for easier deployment.
-- **Logging and Monitoring**: Integrate centralized logging and monitoring tools for better observability.
-- **Password Recovery**: Add a password recovery feature to help users reset forgotten passwords.
-- **Rate Limiting**: Implement rate limiting to prevent abuse of authentication endpoints.
+- **Refresh Tokens**: Implement refresh tokens for obtaining new access tokens when the existing ones expire.
+
 
 ## References
 - https://blog.openreplay.com/jwt-authentication-best-practices/
