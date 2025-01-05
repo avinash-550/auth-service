@@ -1,6 +1,6 @@
 # Authentication Service
 
-A Spring Boot-based microservice providing essential authentication functionalities.
+A Spring Boot-based microservice providing token based authentication functionalities.
 
 
 
@@ -142,3 +142,6 @@ Set up the following variables in your `application.properties` file or as envir
 - **Logging and Monitoring**: Integrate centralized logging and monitoring tools for better observability.
 - **Password Recovery**: Add a password recovery feature to help users reset forgotten passwords.
 - **Rate Limiting**: Implement rate limiting to prevent abuse of authentication endpoints.
+
+## References
+- https://blog.openreplay.com/jwt-authentication-best-practices/
